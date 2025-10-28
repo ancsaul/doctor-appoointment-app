@@ -1,37 +1,48 @@
-    <!DOCTYPE html>
-    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+@props([
+    'title' => config('app.name', 'Laravel'),
+    'breadcrumbs' => []
+])
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <title>{{ $title }}</title>
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireStyles
-    </head>
-    <body class="font-sans antialiased bg-pink-50">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        @include('layouts.includes.admin.navigation')
-        @include('layouts.includes.admin.sidebar')
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://kit.fontawesome.com/9161014f5f.js" crossorigin="anonymous"></script>
+
+    <!-- Livewire Styles -->
+    @livewireStyles
+</head>
+<body class="font-sans antialiased bg-gray-50">
+
+    @include('layouts.includes.admin.navigation')
+    @include('layouts.includes.admin.sidebar')
 
     <div class="p-4 sm:ml-64">
-        <div class="mt-14">
-            {{$slot}}
+        {{-- añadiendo margen superior --}}
+        <div class="mt-14 flex items-center justify-between w-full">
+            @include('layouts.includes.breadcrumb')
         </div>
+        {{ $slot }}
     </div>
 
     @stack('modals')
 
+    <!-- Livewire Scripts -->
     @livewireScripts
-        <body>
-        @yield('content')
 
-        <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-        </body>
-    </body>
-    </html>
+    <!-- Flowbite -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 
+</body>
+</html>
