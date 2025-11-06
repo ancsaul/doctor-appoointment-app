@@ -1,9 +1,9 @@
 <?php
 
 namespace Database\Seeders;
-use Spatie\Permission\Models\Role;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
@@ -12,19 +12,17 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        //Definir roles
+        // Definir roles
         $roles = [
-
             'Paciente',
             'Doctor',
             'Recepcionista',
-            'Administrador'
+            'Administrador',
         ];
-        //Crear en la BD
-        foreach($roles as $role){
-            Role::create([
-                'name' => $role
-            ]);
-            }
+
+        // Crear en la BD
+        foreach ($roles as $roleName) {
+            Role::firstOrCreate(['name' => $roleName]);
+        }
     }
 }

@@ -1,31 +1,35 @@
 <?php
 
-namespace App\Livewire\Admin\DataTables;
+namespace App\Livewire\Admin\Datatables;
 
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
-use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Role;
+use Livewire\Component;
+use Livewire\WithPagination;
+use Spatie\Permission\Models\Role;
 
-class RoleTable extends DataTableComponent
+class RoleTable extends Component
 {
-    protected $model = Role::class;
+    use WithPagination;
 
-    public function configure(): void
+    public $search = '';
+
+    public function render()
     {
-        $this->setPrimaryKey('id');
+        $roles = Role::query()
+            ->when($this->search, function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%');
+            })
+            ->paginate(10);
+
+        return view('livewire.admin.datatables.role-table', [
+            'roles' => $roles
+        ]);
     }
 
-    public function columns(): array
+    public function delete($roleId)
     {
-        return [
-            Column::make("Id", "id")
-                ->sortable(),
-            Column::make("Nombre", "name")
-                ->sortable()
-                ->searchable(),
-            Column::make("Fecha de Creación", "created_at")
-                ->sortable()
-                ->format(fn($value) => $value->format('d/m/Y H:i')),
-        ];
+        $role = Role::findOrFail($roleId);
+        $role->delete();
+
+        session()->flash('message', 'Rol eliminado exitosamente.');
     }
 }

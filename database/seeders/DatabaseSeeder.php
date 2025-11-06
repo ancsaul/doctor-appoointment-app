@@ -13,17 +13,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        //Llamar a RoleSeeder
-        $this->call([
-            RoleSeeder::class
-        ]);
+        // User::factory(10)->create();
 
-        //Crear un usuario de prueba cada que se ejecuten migraciones
-        //php artisan migrate:fresh -seed
         User::factory()->create([
-            'name' => 'Jhonatan Keb',
-            'email' => 'jhony@example.com',
-            'password' => bcrypt('12345678')
-   ]);
-}
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
+         //Crear un usuario de prueba cada que se ejecuten migraciones
+        //php artisan migrate:refresh --seed
+        User::factory()->create([
+            'name' => 'Juan Perez',
+            'email' => 'admin@admin.admin',
+            'password'=> bcrypt('12345678'),
+        ]);
+    }
 }
