@@ -8,13 +8,61 @@ $links = [
         'active' => request()->routeIs('admin.dashboard'),
     ],
     [
-        'header' => 'Management',
+        'header' => 'Gestión Médica',
+    ],
+    [
+        'name' => 'Citas',
+        'icon' => 'fa-solid fa-calendar-days',
+        'href' => '#',
+        'active' => false,
+    ],
+    [
+        'name' => 'Usuarios',
+        'icon' => 'fa-solid fa-users',
+        'href' => route('admin.users.index'),
+        'active' => request()->routeIs('admin.users.*'),
+    ],
+    [
+        'name' => 'Doctores',
+        'icon' => 'fa-solid fa-user-doctor',
+        'href' => '#',
+        'active' => false,
+    ],
+    [
+        'name' => 'Historiales Médicos',
+        'icon' => 'fa-solid fa-file-medical',
+        'href' => '#',
+        'active' => false,
+    ],
+    [
+        'header' => 'Administrativo',
+    ],
+    [
+        'name' => 'Facturación',
+        'icon' => 'fa-solid fa-receipt',
+        'href' => '#',
+        'active' => false,
+    ],
+    [
+        'name' => 'Reportes',
+        'icon' => 'fa-solid fa-chart-line',
+        'href' => '#',
+        'active' => false,
+    ],
+    [
+        'header' => 'Sistema',
     ],
     [
         'name' => 'Roles y permisos',
         'icon' => 'fa-solid fa-user-shield',
         'href' => route('admin.roles.index'),
         'active' => request()->routeIs('admin.roles.*'),
+    ],
+    [
+        'name' => 'Configuración',
+        'icon' => 'fa-solid fa-gear',
+        'href' => '#',
+        'active' => false,
     ]
 ];
 @endphp

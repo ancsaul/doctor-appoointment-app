@@ -3,15 +3,40 @@
     'breadcrumbs' => []
 ])
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    @@ -36,11 +37,11 @@
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ $title }}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- Styles -->
+    @livewireStyles
+</head>
+
+<body class="font-sans antialiased bg-gray-100">
+    @include('layouts.includes.admin.navigation')
+
+    @include('layouts.includes.admin.sidebar')
 
     <div class="p-4 sm:ml-64">
         <!--Margin top 14px-->
-        <div class="mt-14 flex items-center justify-between w-full">
+        <div class="mt-14 flex items-center justify-between w-full mb-6">
             @include('layouts.includes.admin.breadcrumb')
             {{ $action ?? '' }}
         </div>
@@ -19,7 +44,8 @@
     </div>
 
     @stack('modals')
-    @@ -49,10 +50,41 @@
+
+    @livewireScripts
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 
     {{-- Mostrar Sweet Alert --}}
